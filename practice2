@@ -1,0 +1,71 @@
+import { useState, useEffect } from "react"
+import { View, Text, Image, StyleSheet, TouchableOpacity, Modal, Pressable } from "react-native"
+
+const films = [
+  { title: "Interstellar", author: "Кристофер Нолан", year: 2014, imageUrl: "https://upload.wikimedia.org/wikipedia/en/b/bc/Interstellar_film_poster.jpg", info: "Ғарыш пен уақыт туралы ғылыми-фантастикалық фильм" },
+  { title: "Inception", author: "Кристофер Нолан", year: 2010, imageUrl: "https://upload.wikimedia.org/wikipedia/en/7/7f/Inception_ver3.jpg", info: "Түстер мен сананың қабаттары" },
+  { title: "The Matrix", author: "Вачовски", year: 1999, imageUrl: "https://upload.wikimedia.org/wikipedia/en/c/c1/The_Matrix_Poster.jpg", info: "Шынайылық туралы философиялық экшн" },
+  { title: "Avatar", author: "Джеймс Кэмерон", year: 2009, imageUrl: "https://upload.wikimedia.org/wikipedia/en/b/b0/Avatar-Teaser-Poster.jpg", info: "Пандора әлемі" },
+  { title: "The Dark Knight", author: "Кристофер Нолан", year: 2008, imageUrl: "https://upload.wikimedia.org/wikipedia/en/8/8a/Dark_Knight.jpg", info: "Бэтмен мен Джокер қақтығысы" },
+  { title: "Fight Club", author: "Дэвид Финчер", year: 1999, imageUrl: "https://upload.wikimedia.org/wikipedia/en/f/fc/Fight_Club_poster.jpg", info: "Қоғамдық жүйеге қарсы көзқарас" },
+  { title: "Pulp Fiction", author: "Квентин Тарантино", year: 1994, imageUrl: "https://upload.wikimedia.org/wikipedia/en/8/82/Pulp_Fiction_cover.jpg", info: "Қара юмор мен криминал" },
+  { title: "Forrest Gump", author: "Роберт Земекис", year: 1994, imageUrl: "https://upload.wikimedia.org/wikipedia/en/6/67/Forrest_Gump_poster.jpg", info: "Қарапайым адамның ерекше өмірі" },
+  { title: "Gladiator", author: "Ридли Скотт", year: 2000, imageUrl: "https://upload.wikimedia.org/wikipedia/en/8/8d/Gladiator_ver1.jpg", info: "Рим аренасы мен кек" },
+  { title: "The Shawshank Redemption", author: "Фрэнк Дарабонт", year: 1994, imageUrl: "https://upload.wikimedia.org/wikipedia/en/8/81/ShawshankRedemptionMoviePoster.jpg", info: "Үміт пен еркіндік" }
+]
+
+export default function App() {
+  const [index, setIndex] = useState(0)
+  const [open, setOpen] = useState(false)
+
+  useEffect(() => {}, [index])
+
+  const film = films[index]
+
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity onLongPress={() => setOpen(true)}>
+        <Image source={{ uri: film.imageUrl }} style={styles.image} />
+      </TouchableOpacity>
+
+      <Text style={styles.title}>{film.title}</Text>
+      <Text style={styles.subtitle}>{film.author} ({film.year})</Text>
+
+      <View style={styles.buttons}>
+        <TouchableOpacity disabled={index === 0} onPress={() => setIndex(index - 1)} style={[styles.button, index === 0 && styles.disabled]}>
+          <Text style={styles.buttonText}>Алдыңғы</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity disabled={index === films.length - 1} onPress={() => setIndex(index + 1)} style={[styles.button, index === films.length - 1 && styles.disabled]}>
+          <Text style={styles.buttonText}>Келесі</Text>
+        </TouchableOpacity>
+      </View>
+
+      <Modal transparent visible={open} animationType="fade">
+        <View style={styles.modal}>
+          <View style={styles.modalBox}>
+            <Text style={styles.modalText}>{film.info}</Text>
+            <Pressable onPress={() => setOpen(false)}>
+              <Text style={styles.close}>Жабу</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Modal>
+    </View>
+  )
+}
+
+const styles = StyleSheet.create({
+  container: { flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: "#fff", padding: 20 },
+  image: { width: 220, height: 320, borderRadius: 12 },
+  title: { fontSize: 22, fontWeight: "600", marginTop: 16 },
+  subtitle: { fontSize: 16, color: "#555", marginBottom: 20 },
+  buttons: { flexDirection: "row", gap: 12 },
+  button: { backgroundColor: "#222", paddingVertical: 10, paddingHorizontal: 20, borderRadius: 8 },
+  disabled: { opacity: 0.4 },
+  buttonText: { color: "#fff", fontSize: 16 },
+  modal: { flex: 1, backgroundColor: "rgba(0,0,0,0.5)", justifyContent: "center", alignItems: "center" },
+  modalBox: { backgroundColor: "#fff", padding: 20, borderRadius: 10, width: "80%" },
+  modalText: { fontSize: 16, marginBottom: 16 },
+  close: { textAlign: "right", fontSize: 16, color: "#0066cc" }
+})
