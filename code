@@ -1,0 +1,68 @@
+import { StyleSheet, Text, View } from 'react-native';
+
+export default function App() {
+  return (
+    <View style={styles.container}>
+     
+
+      <View style={styles.card}>
+
+
+
+        <Text style={styles.name}>Бейсенбаев Амир</Text>
+        <Text style={styles.group}>Топ: CS-401</Text>
+
+
+        <View style={styles.divider} />
+
+ 
+        <Text style={styles.label}>Email</Text>
+        <Text style={styles.text}>amirbeisenbaev04@gmail.com</Text>
+
+      </View>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fffff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+
+
+  name: {
+    fontSize: 22,
+    fontWeight: '700',
+    color: '#000000',
+  },
+
+  group: {
+    fontSize: 14,
+    color: '#94a3b8',
+    marginBottom: 16,
+  },
+
+  divider: {
+    width: '100%',
+    height: 1,
+    backgroundColor: '#1e293b',
+    marginVertical: 16,
+  },
+
+  label: {
+    fontSize: 12,
+    color: '#000000',
+    alignSelf: 'flex-start',
+  },
+
+  text: {
+    fontSize: 14,
+    color: '#000000',
+    marginBottom: 12,
+    alignSelf: 'flex-start',
+  },
+});
